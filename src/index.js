@@ -5,7 +5,7 @@ const pagesPath = path.join(__dirname, '/pages');
 
 function readPageData(url) {
     try {
-        const data = fs.readFileSync(path.join(pagesPath, url), 'utf8');
+        const data = fs.readFileSync(path.join(pagesPath, url + '.html'), 'utf8');
         return data;
     } catch(error) {
         return error;
@@ -16,7 +16,7 @@ const server = http.createServer((req, res) => {
     let { url } = req;
 
     if(url === '/') {
-        url = 'index.html';
+        url = 'index';
     }
 
     if(url === '/favicon.ico') {
@@ -29,7 +29,7 @@ const server = http.createServer((req, res) => {
 
     if(data instanceof Error) {
         res.writeHead(404);
-        res.end(readPageData('/404.html'));
+        res.end(readPageData('404'));
         return;
     }
 
